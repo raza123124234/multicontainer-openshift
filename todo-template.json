@@ -1,6 +1,6 @@
 {
   "kind": "Template",
-  "apiVersion": "v1",
+  "apiVersion": "template.openshift.io/v1",
   "metadata": {
     "name": "todonodejs-persistent",
     "annotations": {
@@ -60,7 +60,17 @@
                 "mountPath": "/var/lib/mysql/init",
                 "name": "db-init"
               }
-            ]
+            ],
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": ["ALL"]
+              },
+              "runAsNonRoot": true,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            }
           }
         ],
         "volumes": [
@@ -92,7 +102,7 @@
         "containers": [
           {
             "resources": {
-              "limits" : {
+              "limits": {
                 "cpu": "0.5"
               }
             },
@@ -117,7 +127,17 @@
                 "name": "MYSQL_ENV_MYSQL_PASSWORD",
                 "value": "mypa55"
               }
-            ]
+            ],
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": ["ALL"]
+              },
+              "runAsNonRoot": true,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            }
           }
         ]
       }
